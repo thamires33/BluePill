@@ -1,80 +1,101 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom"; // Para navegação
+import api from "../../api"; // Instância do Axios para requisições autenticadas
 
 const FormLogin = () => {
-  return (
-    <form>
-      <InputField type="text" placeholder="Username" />
-      <InputField type="password" placeholder="Password" />
-      <SubmitButton type="submit">Login</SubmitButton>
-      
-      {/* Botão de login com Google */}
-      <GoogleButton type="button">Entrar com o Google</GoogleButton>
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-      <ForgotPasswordLink href="#">Esqueceu a senha?</ForgotPasswordLink>
-    </form>
+  // Login com credenciais tradicionais
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await api.post("/login/", { email, password });
+
+      if (response.data.access) {
+        localStorage.setItem("accessToken", response.data.access); // Armazenando o token
+        alert("Login realizado com sucesso!");
+        navigate("/home"); // Redireciona para a home após o login
+      } else {
+        alert("Token não encontrado. Verifique a resposta da API.");
+      }
+    } catch (error) {
+      alert("Erro ao fazer login. Verifique suas credenciais.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Login com Google OAuth
+  const handleGoogleLoginSuccess = async (credentialResponse) => {
+    setLoading(true);
+    try {
+      const response = await api.post("/social-login/", {
+        token: credentialResponse.credential,
+      });
+
+      if (response.data.access) {
+        localStorage.setItem("accessToken", response.data.access);
+        alert("Login com Google realizado com sucesso!");
+        navigate("/home");
+      } else {
+        alert("Token não encontrado. Verifique a resposta da API.");
+      }
+    } catch (error) {
+      alert("Erro ao fazer login com Google.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <GoogleOAuthProvider clientId="SUA_CLIENT_ID_DO_GOOGLE_OAUTH">
+      <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
+        <form onSubmit={handleLogin} style={{ marginBottom: "20px" }}>
+          <h1>Login</h1>
+          <div style={{ marginBottom: "10px" }}>
+            <input
+              type="email"
+              placeholder="E-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+            />
+            <input
+              type="password"
+              placeholder="Senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+            />
+          </div>
+          <button
+            type="submit"
+            style={{ width: "100%", padding: "10px", backgroundColor: "#4CAF50", color: "white", border: "none", borderRadius: "4px" }}
+            disabled={loading}
+          >
+            {loading ? "Carregando..." : "Entrar"}
+          </button>
+        </form>
+
+        <div>
+          <h2 style={{ textAlign: "center" }}>Ou entre com:</h2>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <GoogleLogin
+              onSuccess={handleGoogleLoginSuccess}
+              onError={() => alert("Erro ao autenticar com o Google.")}
+            />
+          </div>
+        </div>
+      </div>
+    </GoogleOAuthProvider>
   );
 };
-
-const InputField = styled.input`
-  padding: 10px;
-  margin-bottom: 15px;  // Espaçamento entre os campos
-  width: 100%;          // Para os campos ocuparem a largura total
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-`;
-
-const SubmitButton = styled.button`
-  padding: 10px 20px;
-  background-color: #64b5c5;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  width: 100%;  // Ocupa a largura total do contêiner
-  margin-top: 10px;
-
-  &:hover {
-    background-color: #4a93a5;
-  }
-`;
-
-// Estilo para o botão de login com Google
-const GoogleButton = styled.button`
-  padding: 10px 20px;
-  background-color: #db4437;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  width: 100%;  // Ocupa a largura total do contêiner
-  margin-top: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    background-color: #c1351d;
-  }
-
-  span {
-    margin-left: 10px;  // Espaçamento entre ícone e texto
-  }
-`;
-
-const ForgotPasswordLink = styled.a`
-  text-align: center;
-  color: #64b5c5;
-  text-decoration: none;
-  font-size: 14px;
-  margin-top: 10px;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
 
 export default FormLogin;

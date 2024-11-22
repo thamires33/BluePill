@@ -43,7 +43,7 @@ export const LeftSection = styled.div`
 
   a {
     text-align: center;
-    color: #64b5c5;
+    color: #006da5;
     text-decoration: none;
     font-size: 14px;
 
@@ -78,7 +78,7 @@ export const RightSection = styled.div`
   button {
     padding: 10px 20px;
     background-color: white;
-    color: #64b5c5;
+    color: #006da5;
     border: none;
     border-radius: 5px;
     font-weight: bold;

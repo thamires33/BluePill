@@ -8,13 +8,16 @@ const Login = () => {
   return (
     <Container>
       <LoginBox className="row">
+        {/* Seção Esquerda */}
         <LeftSection className="col-lg-6 col-md-6 col-sm-12">
           <h1>Logar</h1>
-          <FormLogin />
-          <SocialIcons />
+          <FormLogin /> {/* Componente que contém o formulário de login */}
+          <SocialIcons /> {/* Componente para os ícones de login social (Google, Facebook, etc.) */}
         </LeftSection>
+
+        {/* Seção Direita */}
         <RightSection className="col-lg-6 col-md-6 col-sm-12">
-          <CTA />
+          <CTA /> {/* Componente de chamada à ação, como informações adicionais ou links */}
         </RightSection>
       </LoginBox>
     </Container>
