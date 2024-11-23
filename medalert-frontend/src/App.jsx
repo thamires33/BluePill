@@ -4,6 +4,7 @@ import Login from "./containers/Login";
 import Home from "./containers/Home";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Medicamentos from "./components/Medicamentos";
+import RedirectGoogleAuth from "./components/GoogleredirectHandler";
 import axios from "axios";
 
 
@@ -12,6 +13,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/login/callback" element={<RedirectGoogleAuth />} />
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/medicamentos" element={<Medicamentos />} />

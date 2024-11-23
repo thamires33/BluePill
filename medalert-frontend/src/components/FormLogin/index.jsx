@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom"; // Para navegação
 import api from "../../api"; // Instância do Axios para requisições autenticadas
+import {ACCESS_TOKEN, REFRESH_TOKEN, GOOGLE_ACCESS_TOKEN} from "../../token";
 
 const FormLogin = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ const FormLogin = () => {
       const response = await api.post("/login/", { email, password });
 
       if (response.data.access) {
-        localStorage.setItem("accessToken", response.data.access); // Armazenando o token
+        localStorage.setItem(ACCESS_TOKEN, response.data.access); // Armazenando o token
         alert("Login realizado com sucesso!");
         navigate("/home"); // Redireciona para a home após o login
       } else {
@@ -31,29 +32,12 @@ const FormLogin = () => {
   };
 
   // Login com Google OAuth
-  const handleGoogleLoginSuccess = async (credentialResponse) => {
-    setLoading(true);
-    try {
-      const response = await api.post("/social-login/", {
-        token: credentialResponse.credential,
-      });
-
-      if (response.data.access) {
-        localStorage.setItem("accessToken", response.data.access);
-        alert("Login com Google realizado com sucesso!");
-        navigate("/home");
-      } else {
-        alert("Token não encontrado. Verifique a resposta da API.");
-      }
-    } catch (error) {
-      alert("Erro ao fazer login com Google.");
-    } finally {
-      setLoading(false);
-    }
+  const handleGoogleLogin = () => {
+    window.location.href = import.meta.env.VITE_BACKEND_URL + "/accounts/google/login/";
   };
 
   return (
-    <GoogleOAuthProvider clientId="SUA_CLIENT_ID_DO_GOOGLE_OAUTH">
+    <GoogleOAuthProvider clientId="202974754746-ud9jhk2ab8lao4sha4jlkqgehp4b3vgs.apps.googleusercontent.com">
       <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
         <form onSubmit={handleLogin} style={{ marginBottom: "20px" }}>
           <h1>Login</h1>
@@ -88,10 +72,13 @@ const FormLogin = () => {
           <h2 style={{ textAlign: "center" }}>Ou entre com:</h2>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <GoogleLogin
-              onSuccess={handleGoogleLoginSuccess}
+              onClick={handleGoogleLogin}
               onError={() => alert("Erro ao autenticar com o Google.")}
             />
           </div>
+          <button type="button" className="google-button" onClick={handleGoogleLogin}>
+            TESTE
+          </button>
         </div>
       </div>
     </GoogleOAuthProvider>

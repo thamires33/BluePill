@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Cabecalho from "../../components/Cabecalho";
 import { FaEye } from "react-icons/fa";
-import api from "../../api"; // Importa a configuração do Axios
+import api from "../../api";
+import {ACCESS_TOKEN, REFRESH_TOKEN, GOOGLE_ACCESS_TOKEN} from "../../token";
 
-const token = localStorage.getItem("token");
+const token = localStorage.getItem(ACCESS_TOKEN);
+console.log(token)
 
 const Home = () => {
   const [receitas, setReceitas] = useState([]); // Estado para armazenar as receitas
