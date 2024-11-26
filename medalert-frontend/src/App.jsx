@@ -4,6 +4,7 @@ import Login from "./containers/Login";
 import Home from "./containers/Home";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Medicamentos from "./components/Medicamentos";
+import FormRegister from "./components/FormRegister";
 import RedirectGoogleAuth from "./components/GoogleredirectHandler";
 import axios from "axios";
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/medicamentos" element={<Medicamentos />} />
+        <Route path="/register" element={<FormRegister />} />
       </Routes>
     </Router>
   );

@@ -2,7 +2,47 @@ import React, { useState } from "react";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom"; // Para navegação
 import api from "../../api"; // Instância do Axios para requisições autenticadas
-import {ACCESS_TOKEN, REFRESH_TOKEN, GOOGLE_ACCESS_TOKEN} from "../../token";
+import { ACCESS_TOKEN, REFRESH_TOKEN, GOOGLE_ACCESS_TOKEN } from "../../token";
+import styled from 'styled-components';
+
+// Componente Button personalizado
+const Button = ({ children, onClick }) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        width: "100%",
+        padding: "10px",
+        backgroundColor: "#91b5ee", // Cor do Google
+        color: "white",
+        border: "none",
+        borderRadius: "4px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: "10px",
+      }}
+    >
+      {children}
+    </button>
+  );
+};
+
+// Componente GoogleIcon personalizado
+const GoogleIcon = ({ src, alt }) => {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      style={{
+        width: "20px",
+        height: "20px",
+        marginRight: "10px",
+      }}
+    />
+  );
+};
 
 const FormLogin = () => {
   const [email, setEmail] = useState("");
@@ -61,7 +101,14 @@ const FormLogin = () => {
           </div>
           <button
             type="submit"
-            style={{ width: "100%", padding: "10px", backgroundColor: "#4CAF50", color: "white", border: "none", borderRadius: "4px" }}
+            style={{
+              width: "100%",
+              padding: "10px",
+              backgroundColor: "#4CAF50",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+            }}
             disabled={loading}
           >
             {loading ? "Carregando..." : "Entrar"}
@@ -70,17 +117,17 @@ const FormLogin = () => {
 
         <div>
           <h2 style={{ textAlign: "center" }}>Ou entre com:</h2>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <GoogleLogin
-              onClick={handleGoogleLogin}
-              onError={() => alert("Erro ao autenticar com o Google.")}
+          <Button onClick={handleGoogleLogin}>
+            <GoogleIcon
+              src="../../../public/icones/google.png"
+              alt="Google logo"
             />
+            Entrar com Google
+          </Button>
           </div>
-          <button type="button" className="google-button" onClick={handleGoogleLogin}>
-            TESTE
-          </button>
+          
+        
         </div>
-      </div>
     </GoogleOAuthProvider>
   );
 };

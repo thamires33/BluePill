@@ -55,7 +55,7 @@ export const LeftSection = styled.div`
 
 export const RightSection = styled.div`
   flex: 1;
-  background: url("https://via.placeholder.com/400") no-repeat center center;
+  background:#f7f7f7;
   background-size: cover;
   display: flex;
   flex-direction: column;
