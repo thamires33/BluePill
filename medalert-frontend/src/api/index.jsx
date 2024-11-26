@@ -17,9 +17,9 @@ api.interceptors.request.use(
     }
 
     const googleAccessToken = localStorage.getItem(GOOGLE_ACCESS_TOKEN);
-    if (googleAccessToken) {
-      config.headers["X-Google-Access-Token"] = googleAccessToken;
-    }
+    // if (googleAccessToken) {
+    //   config.headers["X-Google-Access-Token"] = googleAccessToken;
+    // }
 
     return config;
   },

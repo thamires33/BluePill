@@ -15,7 +15,7 @@ function RedirectGoogleAuth() {
 
         if (accessToken) {
             console.log("AccessToken found: ", accessToken);
-            localStorage.setItem(GOOGLE_ACCESS_TOKEN, accessToken);
+            localStorage.setItem(ACCESS_TOKEN, accessToken);
             navigate('/home')
         } else {
             console.log('No token found in URL');

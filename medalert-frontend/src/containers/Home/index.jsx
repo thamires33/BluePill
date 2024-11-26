@@ -5,7 +5,6 @@ import api from "../../api";
 import {ACCESS_TOKEN, REFRESH_TOKEN, GOOGLE_ACCESS_TOKEN} from "../../token";
 
 const token = localStorage.getItem(ACCESS_TOKEN);
-console.log(token)
 
 const Home = () => {
   const [receitas, setReceitas] = useState([]); // Estado para armazenar as receitas
@@ -30,8 +29,8 @@ const Home = () => {
     const fetchReceitas = async () => {
       setLoading(true);
       try {
-        const response = await api.get("/receitas/", {
-          headers: { Authorization: `Bearer ${token}` },
+        const response = await api.get("/receitas/preescritas/", {
+          headers: { Authorization: `Bearer ${token}`,  },
         });
         setReceitas(response.data); // Atualiza o estado com os dados recebidos
       } catch (error) {
@@ -126,7 +125,7 @@ const Home = () => {
         </div>
         <div style={styles.contentContainer}>
           <div style={styles.headerContainer}>
-            <h1>Receitas</h1>
+            <h1>Receitas preescritas por você</h1>
             <button style={styles.addButton} onClick={handleAddRecipeClick}>
               Adicionar Receita
             </button>
@@ -143,9 +142,14 @@ const Home = () => {
                     style={styles.card}
                     onClick={() => handleCardClick(receita)}
                   >
-                    <h3>{receita.paciente}</h3>
+                    <h3>{receita.paciente.first_name} {receita.paciente.last_name}</h3>
                     <p><strong>Medicamento:</strong> {receita.medicamento}</p>
                     <p><strong>Dose:</strong> {receita.dose}</p>
+                    <p><strong>Recomendação:</strong> {receita.recomendacao}</p>
+                    <p><strong>Médico responsável:</strong> {receita.medico.first_name} {receita.medico.last_name}</p>
+                    <p><strong>Início do alarme:</strong> {new Date(receita.alarme.inicio).toLocaleString()}</p>
+                    <p><strong>Intervalo de horas:</strong> {receita.alarme.intervalo_horas}</p>
+                    <p><strong>Duração do alarme (dias):</strong> {receita.alarme.duracao_dias}</p>
                     <div style={styles.iconContainer}>
                       <FaEye style={styles.eyeIcon} />
                     </div>
@@ -155,6 +159,7 @@ const Home = () => {
             </>
           )}
         </div>
+
 
         {/* Modal para adicionar nova receita */}
         {showModal && (
