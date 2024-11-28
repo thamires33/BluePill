@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from googletrans import Translator, LANGUAGES
 import requests
 from flask_cors import CORS
-import spacy  # Importando spaCy para análise de texto
+import spacy 
 
 # Criar a instância do Flask
 app = Flask(__name__)

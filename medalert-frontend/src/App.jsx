@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Medicamentos from "./components/Medicamentos";
 import FormRegister from "./components/FormRegister";
 import RedirectGoogleAuth from "./components/GoogleredirectHandler";
+import Dashboard from "./components/Dashboard";
 import axios from "axios";
 
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/medicamentos" element={<Medicamentos />} />
+        <Route path="/dash" element={<Dashboard />} />
         <Route path="/register" element={<FormRegister />} />
       </Routes>
     </Router>
