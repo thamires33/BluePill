@@ -10,7 +10,7 @@ const Login = () => {
       <LoginBox className="row">
         {/* Seção Esquerda */}
         <LeftSection className="col-lg-6 col-md-6 col-sm-12">
-          <h1>Logar</h1>
+          
           <FormLogin /> {/* Componente que contém o formulário de login */}
           <SocialIcons /> {/* Componente para os ícones de login social (Google, Facebook, etc.) */}
         </LeftSection>

@@ -70,15 +70,36 @@ const FormLogin = () => {
 
         <div>
           <h2 style={{ textAlign: "center" }}>Ou entre com:</h2>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <GoogleLogin
-              onClick={handleGoogleLogin}
-              onError={() => alert("Erro ao autenticar com o Google.")}
-            />
-          </div>
-          <button type="button" className="google-button" onClick={handleGoogleLogin}>
-            TESTE
-          </button>
+          
+          
+          <button
+  type="button"
+  className="google-button"
+  onClick={handleGoogleLogin}
+  style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#ffffff",
+    border: "1px solid #ddd",
+    borderRadius: "4px",
+    padding: "10px",
+    width: "100%",
+    fontSize: "16px",
+    color: "#757575",
+    fontWeight: "bold",
+    cursor: "pointer",
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+  }}
+>
+  <img
+    src="../../../public/icones/google.png"
+    alt="Google logo"
+    style={{ width: "20px", height: "20px", marginRight: "10px" }}
+  />
+  Entrar com o Google
+</button>
+
         </div>
       </div>
     </GoogleOAuthProvider>
