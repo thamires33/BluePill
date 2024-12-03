@@ -1,12 +1,11 @@
 import React from "react";
-import { Container, LoginBox, LeftSection, RightSection } from "./styles";
+import { Container, LoginBox, LeftSection, RightSection } from "../styles";
 import FormRegister from "../../components/FormRegister";
 import SocialIcons from "../../components/SocialIcons";
-import CTA from "../../components/CTA";
 
 const Cadastro = () => {
   return (
-    <Container className="h-100">
+    <Container>
       <LoginBox className="row">
         {/* Seção Esquerda */}
         <LeftSection className="col-lg-6 col-md-6 col-sm-12 mt-5">

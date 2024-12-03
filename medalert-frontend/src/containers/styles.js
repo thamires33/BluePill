@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;  // Alinha o conteúdo no topo
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;  // Isso vai garantir que o conteúdo ocupe a altura total da tela, mas ainda tenha flexibilidade
   background-color: #d0e9f7;
+  padding-top: 50px;  // Adiciona espaçamento no topo para empurrar o conteúdo para baixo
 `;
 
 export const LoginBox = styled.div`
@@ -17,6 +18,7 @@ export const LoginBox = styled.div`
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   flex-wrap: wrap;
+  margin-top: 50px;  // Adiciona margem superior ao LoginBox para garantir que o conteúdo não fique colado no topo da tela
 `;
 
 export const LeftSection = styled.div`
@@ -88,7 +90,5 @@ export const RightSection = styled.div`
     &:hover {
       background-color: #f5f5f5;
     }
-    
   }
 `;
-

@@ -108,6 +108,28 @@ const FormLogin = () => {
             />
             Entrar com o Google
           </button>
+
+          <br />
+
+          <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+          Não possui uma conta?
+        </h4>
+
+        <button
+          type="submit"
+          style={{
+            width: "100%",
+            padding: "10px",
+            backgroundColor: "#1591ea",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+          }}
+          disabled={loading}
+          onClick={() => navigate("/cadastro")}
+        >
+          Registrar-se
+        </button>
         </div>
       </div>
     </GoogleOAuthProvider>
