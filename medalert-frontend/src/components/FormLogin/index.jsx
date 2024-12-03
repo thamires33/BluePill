@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom"; // Para navegação
 import api from "../../api"; // Instância do Axios para requisições autenticadas
-import {ACCESS_TOKEN, REFRESH_TOKEN, GOOGLE_ACCESS_TOKEN} from "../../token";
+import { ACCESS_TOKEN, REFRESH_TOKEN, GOOGLE_ACCESS_TOKEN } from "../../token";
 
 const FormLogin = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +19,7 @@ const FormLogin = () => {
 
       if (response.data.access) {
         localStorage.setItem(ACCESS_TOKEN, response.data.access); // Armazenando o token
-        alert("Login realizado com sucesso!");
+        // alert("Login realizado com sucesso!");
         navigate("/home"); // Redireciona para a home após o login
       } else {
         alert("Token não encontrado. Verifique a resposta da API.");
@@ -33,11 +33,14 @@ const FormLogin = () => {
 
   // Login com Google OAuth
   const handleGoogleLogin = () => {
-    window.location.href = import.meta.env.VITE_BACKEND_URL + "/accounts/google/login/";
+    window.location.href =
+      import.meta.env.VITE_BACKEND_URL + "/accounts/google/login/";
   };
 
+  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
   return (
-    <GoogleOAuthProvider clientId="202974754746-ud9jhk2ab8lao4sha4jlkqgehp4b3vgs.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={clientId}>
       <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
         <form onSubmit={handleLogin} style={{ marginBottom: "20px" }}>
           <h1>Login</h1>
@@ -61,7 +64,14 @@ const FormLogin = () => {
           </div>
           <button
             type="submit"
-            style={{ width: "100%", padding: "10px", backgroundColor: "#4CAF50", color: "white", border: "none", borderRadius: "4px" }}
+            style={{
+              width: "100%",
+              padding: "10px",
+              backgroundColor: "#4CAF50",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+            }}
             disabled={loading}
           >
             {loading ? "Carregando..." : "Entrar"}
@@ -70,36 +80,34 @@ const FormLogin = () => {
 
         <div>
           <h2 style={{ textAlign: "center" }}>Ou entre com:</h2>
-          
-          
-          <button
-  type="button"
-  className="google-button"
-  onClick={handleGoogleLogin}
-  style={{
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#ffffff",
-    border: "1px solid #ddd",
-    borderRadius: "4px",
-    padding: "10px",
-    width: "100%",
-    fontSize: "16px",
-    color: "#757575",
-    fontWeight: "bold",
-    cursor: "pointer",
-    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-  }}
->
-  <img
-    src="../../../public/icones/google.png"
-    alt="Google logo"
-    style={{ width: "20px", height: "20px", marginRight: "10px" }}
-  />
-  Entrar com o Google
-</button>
 
+          <button
+            type="button"
+            className="google-button"
+            onClick={handleGoogleLogin}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#ffffff",
+              border: "1px solid #ddd",
+              borderRadius: "4px",
+              padding: "10px",
+              width: "100%",
+              fontSize: "16px",
+              color: "#757575",
+              fontWeight: "bold",
+              cursor: "pointer",
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <img
+              src="/icones/google.png"
+              alt="Google logo"
+              style={{ width: "20px", height: "20px", marginRight: "10px" }}
+            />
+            Entrar com o Google
+          </button>
         </div>
       </div>
     </GoogleOAuthProvider>

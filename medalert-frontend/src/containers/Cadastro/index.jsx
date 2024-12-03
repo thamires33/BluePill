@@ -1,12 +1,26 @@
 import React from "react";
+import { Container, LoginBox, LeftSection, RightSection } from "./styles";
+import FormRegister from "../../components/FormRegister";
+import SocialIcons from "../../components/SocialIcons";
+import CTA from "../../components/CTA";
 
 const Cadastro = () => {
   return (
-    <div>
-      <h1>Página de Cadastro</h1>
-      {/* Outros conteúdos do componente */}
-    </div>
+    <Container>
+      <LoginBox className="row">
+        {/* Seção Esquerda */}
+        <LeftSection className="col-lg-6 col-md-6 col-sm-12">
+          <FormRegister /> {/* Componente que contém o formulário de login */}
+          <SocialIcons /> {/* Componente para os ícones de login social (Google, Facebook, etc.) */}
+        </LeftSection>
+
+        {/* Seção Direita */}
+        <RightSection className="col-lg-6 col-md-6 col-sm-12">
+          <CTA /> {/* Componente de chamada à ação, como informações adicionais ou links */}
+        </RightSection>
+      </LoginBox>
+    </Container>
   );
 };
 
-export default Cadastro; 
+export default Cadastro;
