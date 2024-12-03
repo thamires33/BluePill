@@ -3,7 +3,7 @@ import { ACCESS_TOKEN, GOOGLE_ACCESS_TOKEN } from "../token";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const NOTOKEN = ["registro", "login", "refresh"]; // Lista de rotas que não devem receber token
+const NOTOKEN = ["registro", "login", "refresh", "password"]; // Lista de rotas que não devem receber token
 
 // Criação da instância do Axios
 const api = axios.create({
