@@ -6,18 +6,13 @@ import CTA from "../../components/CTA";
 
 const Cadastro = () => {
   return (
-    <Container>
+    <Container className="h-100">
       <LoginBox className="row">
         {/* Seção Esquerda */}
-        <LeftSection className="col-lg-6 col-md-6 col-sm-12">
+        <LeftSection className="col-lg-6 col-md-6 col-sm-12 mt-5">
           <FormRegister /> {/* Componente que contém o formulário de login */}
           <SocialIcons /> {/* Componente para os ícones de login social (Google, Facebook, etc.) */}
         </LeftSection>
-
-        {/* Seção Direita */}
-        <RightSection className="col-lg-6 col-md-6 col-sm-12">
-          <CTA /> {/* Componente de chamada à ação, como informações adicionais ou links */}
-        </RightSection>
       </LoginBox>
     </Container>
   );

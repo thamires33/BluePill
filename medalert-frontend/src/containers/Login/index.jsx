@@ -19,6 +19,7 @@ const Login = () => {
         <RightSection className="col-lg-6 col-md-6 col-sm-12">
           <CTA /> {/* Componente de chamada à ação, como informações adicionais ou links */}
         </RightSection>
+
       </LoginBox>
     </Container>
   );
