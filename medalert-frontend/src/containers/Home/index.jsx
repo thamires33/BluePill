@@ -7,6 +7,7 @@ import {ACCESS_TOKEN, REFRESH_TOKEN, GOOGLE_ACCESS_TOKEN} from "../../token";
 const token = localStorage.getItem(ACCESS_TOKEN);
 
 const Home = () => {
+
   const [receitas, setReceitas] = useState([]); // Estado para armazenar as receitas
   const [showModal, setShowModal] = useState(false); // Controle da modal
   const [newReceita, setNewReceita] = useState({

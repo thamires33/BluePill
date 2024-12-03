@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Para navegação
 import api from "../../api"; // Instância do Axios para requisições autenticadas
-import { ACCESS_TOKEN, REFRESH_TOKEN, GOOGLE_ACCESS_TOKEN } from "../../token";
 import Especialidades from "../Especialidades"; // Importa o componente de especialidades
 import EstadoBrasil from "../Estados";
+import { ACCESS_TOKEN, REFRESH_TOKEN, GOOGLE_ACCESS_TOKEN } from "../../token";
 
 const FormRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [nome, setNome] = useState(""); // Nome completo
   const [username, setUsername] = useState(""); // Username
   const [firstName, setFirstName] = useState(""); // Primeiro nome
   const [lastName, setLastName] = useState(""); // Sobrenome
@@ -43,22 +42,25 @@ const FormRegister = () => {
 
     setLoading(true);
     try {
-      const response = await api.post("/registro/", {
-        email,
-        username,
+
+      let data = {
+        email: email,
+        username: username,
         first_name: firstName,
         last_name: lastName,
         password1: password,
         password2: password2,
         user_type: "MED",
-        crm,
-        estado,
-        especialidade,
-      });
+        crm: crm,
+        estado: estado,
+        especialidade: especialidade,
+      }
+
+      const response = await api.post("/registro/", data);
 
       if (response.status === 201) {
         alert("Registro realizado com sucesso!");
-        navigate("/login");
+        navigate("/");
       } else {
         alert("Erro ao registrar. Verifique os dados fornecidos.");
       }
@@ -79,15 +81,7 @@ const FormRegister = () => {
         <div style={{ marginBottom: "10px" }}>
           <input
             type="text"
-            placeholder="Nome Completo"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-            required
-            style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-          />
-          <input
-            type="text"
-            placeholder="Username"
+            placeholder="Nome de usuário"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -139,6 +133,7 @@ const FormRegister = () => {
             value={crm}
             onChange={(e) => setCrm(e.target.value)}
             required
+            maxLength={7}
             style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
           />
         </div>
