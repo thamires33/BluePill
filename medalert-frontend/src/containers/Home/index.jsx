@@ -25,30 +25,26 @@ const Home = () => {
   const [loading, setLoading] = useState(false); // Estado de carregamento
   const [error, setError] = useState(""); // Estado de erro
 
+  const fetchReceitas = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get("/receitas/preescritas/", {
+        headers: { Authorization: `Bearer ${token}`,  },
+      });
+      setReceitas(response.data); // Atualiza o estado com os dados recebidos
+    } catch (error) {
+      setError("Erro ao buscar receitas.");
+      console.error("Erro ao buscar receitas:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Buscar receitas ao carregar a página
   useEffect(() => {
-    const fetchReceitas = async () => {
-      setLoading(true);
-      try {
-        const response = await api.get("/receitas/preescritas/", {
-          headers: { Authorization: `Bearer ${token}`,  },
-        });
-        setReceitas(response.data); // Atualiza o estado com os dados recebidos
-      } catch (error) {
-        setError("Erro ao buscar receitas.");
-        console.error("Erro ao buscar receitas:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
 
     fetchReceitas();
   }, []);
-
-  // Função para lidar com o clique no card
-  const handleCardClick = (receita) => {
-    alert(`Visualizar receita de ${receita.paciente}`);
-  };
 
   // Função para abrir a modal
   const handleAddRecipeClick = () => {
@@ -90,8 +86,11 @@ const Home = () => {
 
     try {
       setLoading(true);
-      const response = await api.post("/receitas/", newReceita);
-      setReceitas([...receitas, response.data]); // Adiciona a nova receita à lista
+      const response = await api.post("/receitas/receita-alarme/", newReceita);
+      // Busca novamente as receitas
+      fetchReceitas();
+
+      // setReceitas([...receitas, response.data]); // Adiciona a nova receita à lista
       setShowModal(false); // Fecha a modal
       // Reseta o formulário
       setNewReceita({
@@ -141,7 +140,6 @@ const Home = () => {
                   <div
                     key={receita.id}
                     style={styles.card}
-                    onClick={() => handleCardClick(receita)}
                   >
                     <h3>{receita.paciente.first_name} {receita.paciente.last_name}</h3>
                     <p><strong>Medicamento:</strong> {receita.medicamento}</p>
@@ -169,11 +167,27 @@ const Home = () => {
               <h2>Adicionar Receita</h2>
               {error && <div style={{ color: "red" }}>{error}</div>}
               <input
-                type="text"
+                type="email"
                 name="paciente"
                 value={newReceita.paciente}
                 onChange={handleInputChange}
-                placeholder="Nome do paciente"
+                placeholder="Email do paciente"
+                style={styles.input}
+              />
+              <input
+                type="text"
+                name="medicamento"
+                value={newReceita.medicamento}
+                onChange={handleInputChange}
+                placeholder="Nome do medicamento"
+                style={styles.input}
+              />
+              <input
+                type="text"
+                name="dose"
+                value={newReceita.dose}
+                onChange={handleInputChange}
+                placeholder="Dose (Ex: 1 comprimido)"
                 style={styles.input}
               />
               <input
@@ -184,23 +198,10 @@ const Home = () => {
                 placeholder="Recomendação"
                 style={styles.input}
               />
-              <input
-                type="text"
-                name="medicamento"
-                value={newReceita.medicamento}
-                onChange={handleInputChange}
-                placeholder="Medicamento"
-                style={styles.input}
-              />
-              <input
-                type="text"
-                name="dose"
-                value={newReceita.dose}
-                onChange={handleInputChange}
-                placeholder="Dose"
-                style={styles.input}
-              />
+              <br />
+              <br />
               <h3>Alarme</h3>
+              <br />
               <input
                 type="datetime-local"
                 name="inicio"
@@ -222,14 +223,6 @@ const Home = () => {
                 value={newReceita.alarme.duracao_dias}
                 onChange={handleAlarmeChange}
                 placeholder="Duração em dias"
-                style={styles.input}
-              />
-              <input
-                type="text"
-                name="medicamento"
-                value={newReceita.alarme.medicamento}
-                onChange={handleAlarmeChange}
-                placeholder="Medicamento do alarme"
                 style={styles.input}
               />
               <div style={styles.modalButtons}>
