@@ -120,7 +120,6 @@ const Home = () => {
       <div style={styles.pageContainer}>
         <div style={styles.menu}>
           <div style={styles.menuItem}>Home</div>
-          <div style={styles.menuItem}>Dashboard</div>
           <div style={styles.menuItem}>Medicamentos</div>
         </div>
         <div style={styles.contentContainer}>
