@@ -1,54 +1,95 @@
-.medicamentos-container {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-  }
-  
-  .search-container, .filter-container {
-    margin-bottom: 20px;
-  }
-  
-  ul.medicamentos-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  ul.medicamentos-list li {
-    cursor: pointer;
-    padding: 10px;
-    border: 1px solid #ddd;
-    margin: 5px 0;
-    transition: background-color 0.2s;
-  }
-  
-  ul.medicamentos-list li:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 400px;
-  }
-  
-  .close-button {
-    background: red;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
+/* Estilos globais */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.app {
+  background-color: white;
+  width: 80%;
+  max-width: 800px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1.title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.search-type {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.search-type label {
+  font-size: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.button {
+  background-color: #28a745;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #218838;
+}
+
+.results {
+  margin-top: 20px;
+}
+
+.med-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.med-item {
+  background-color: #f9f9f9;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.med-item strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.med-item p {
+  font-size: 14px;
+  margin: 5px 0;
+}
